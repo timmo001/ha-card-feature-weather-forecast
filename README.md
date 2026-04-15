@@ -2,8 +2,10 @@
 
 A custom Home Assistant tile card feature that renders weather forecast slots with support for daily, hourly, twice daily, and legacy forecast modes.
 
+Original from https://github.com/home-assistant/frontend/pull/51559 which is not a good fit for main repo, so was moved here. Some other concerns raised on that PR are not resolved at time of writing. This is for my personal use and support will be limited.
+
 > [!WARNING]
-> This card is experimental, and breaking changes may occur.
+> This card feature is experimental, and breaking changes may occur.
 
 ## Installation
 
