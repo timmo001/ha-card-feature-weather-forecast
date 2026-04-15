@@ -1,5 +1,6 @@
 {
   "name": "Card feature weather forecast",
+  "content_in_root": false,
   "filename": "ha-card-feature-weather-forecast.js",
   "homeassistant": "2025.6",
   "render_readme": true
