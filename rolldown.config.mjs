@@ -52,7 +52,7 @@ export default defineConfig(({ watch }) => {
   ];
 
   return {
-    input: "src/card/hui-weather-forecast-card-feature.ts",
+    input: "src/card/ha-card-feature-weather-forecast.ts",
     tsconfig: "./tsconfig.json",
     output: {
       dir: "dist",
