@@ -125,9 +125,7 @@ export class HuiWeatherForecastCardFeature extends LitElement {
 
     if (
       changedProps.has("context") ||
-      changedProps.has("stateObj") ||
       changedProps.has("_config") ||
-      changedProps.has("hass") ||
       forecastTypeChanged ||
       !this._subscribed
     ) {
@@ -192,7 +190,11 @@ export class HuiWeatherForecastCardFeature extends LitElement {
               ${item.condition
                 ? html`
                     <div class="icon">
-                      ${getWeatherStateIcon(item.condition, this) ?? nothing}
+                      ${getWeatherStateIcon(
+                        item.condition,
+                        this,
+                        !(item.is_daytime || item.is_daytime === undefined)
+                      ) ?? nothing}
                     </div>
                   `
                 : nothing}
