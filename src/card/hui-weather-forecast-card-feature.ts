@@ -76,6 +76,12 @@ export class HuiWeatherForecastCardFeature extends LitElement {
 
   @state() private _subscribed?: Promise<() => void>;
 
+  private _subscribedEntityId?: string;
+
+  private _subscribedForecastType?: ModernForecastType;
+
+  private _subscribedConnection?: HomeAssistant["connection"];
+
   private _dragScrollController = new DragScrollController(this, {
     selector: ".forecast",
     enabled: false,
@@ -119,12 +125,28 @@ export class HuiWeatherForecastCardFeature extends LitElement {
 
     const nextForecastType = this._effectiveForecastType;
     const forecastTypeChanged = nextForecastType !== this._forecastType;
+    const previousContext = changedProps.get("context") as
+      | { entity_id?: string }
+      | undefined;
+    const contextEntityChanged =
+      previousContext?.entity_id !== this.context?.entity_id;
+    const previousHass = changedProps.get("hass") as HomeAssistant | undefined;
+    const hassConnectionChanged =
+      previousHass?.connection !== this.hass?.connection;
+    const previousStateObj = changedProps.get("stateObj") as
+      | WeatherEntity
+      | undefined;
+    const stateObjEntityChanged =
+      previousStateObj?.entity_id !== this.stateObj?.entity_id;
+
     if (forecastTypeChanged) {
       this._forecastType = nextForecastType;
     }
 
     if (
-      changedProps.has("context") ||
+      contextEntityChanged ||
+      hassConnectionChanged ||
+      stateObjEntityChanged ||
       changedProps.has("_config") ||
       forecastTypeChanged ||
       !this._subscribed
@@ -289,30 +311,53 @@ export class HuiWeatherForecastCardFeature extends LitElement {
       this._subscribed.then((unsub) => unsub()).catch(() => undefined);
       this._subscribed = undefined;
     }
+    this._subscribedEntityId = undefined;
+    this._subscribedForecastType = undefined;
+    this._subscribedConnection = undefined;
     this._forecastEvent = undefined;
   }
 
   private _subscribeForecastEvents() {
-    this._unsubscribeForecastEvents();
     const modernForecastType = this._modernForecastType;
+    const stateObj = this._stateObj;
+
+    if (!this.isConnected || !this.hass || !stateObj || !modernForecastType) {
+      this._unsubscribeForecastEvents();
+      return;
+    }
 
     if (
-      !this.isConnected ||
-      !this.hass ||
-      !this._stateObj ||
-      !modernForecastType
+      this._subscribed &&
+      this._subscribedConnection === this.hass.connection &&
+      this._subscribedEntityId === stateObj.entity_id &&
+      this._subscribedForecastType === modernForecastType
     ) {
       return;
     }
 
-    this._subscribed = subscribeForecast(
+    this._unsubscribeForecastEvents();
+
+    const subscribed = subscribeForecast(
       this.hass,
-      this._stateObj.entity_id,
+      stateObj.entity_id,
       modernForecastType,
       (event) => {
         this._forecastEvent = event;
       }
     );
+
+    this._subscribed = subscribed;
+    this._subscribedEntityId = stateObj.entity_id;
+    this._subscribedForecastType = modernForecastType;
+    this._subscribedConnection = this.hass.connection;
+    subscribed.catch(() => {
+      if (this._subscribed === subscribed) {
+        this._subscribed = undefined;
+        this._subscribedEntityId = undefined;
+        this._subscribedForecastType = undefined;
+        this._subscribedConnection = undefined;
+      }
+    });
   }
 
   private _labelForForecast(
