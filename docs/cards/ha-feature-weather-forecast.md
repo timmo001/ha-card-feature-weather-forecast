@@ -1,13 +1,15 @@
-# Weather forecast card
+# Weather forecast card feature
 
-Use this card to display weather forecast entries for a weather entity.
+Use this feature inside a tile card to display weather forecast entries.
 
 ```yaml
-type: custom:ha-card-feature-weather-forecast
+type: tile
 entity: weather.home
-forecast_type: daily
-forecast_slots: 12
-round_temperature: false
+features:
+  - type: custom:hui-weather-forecast-card-feature
+    forecast_type: daily
+    forecast_slots: 12
+    round_temperature: false
 ```
 
 `forecast_type` supports `daily`, `hourly`, `twice_daily`, or `legacy`.

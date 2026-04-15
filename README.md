@@ -1,6 +1,6 @@
-# Weather forecast card
+# Weather forecast card feature
 
-A custom Home Assistant card that renders weather forecast slots with support for daily, hourly, twice daily, and legacy forecast modes.
+A custom Home Assistant tile card feature that renders weather forecast slots with support for daily, hourly, twice daily, and legacy forecast modes.
 
 > [!WARNING]
 > This card is experimental, and breaking changes may occur.
@@ -17,7 +17,7 @@ Since this card is not yet in the default HACS store, add it as a custom reposit
 4. Add repository URL: `https://github.com/timmo001/ha-card-feature-weather-forecast`
 5. Select category: **Dashboard**
 6. Click **"ADD"**
-7. Find "Weather forecast card" in the list and click **Download**
+7. Find "Card feature weather forecast" in the list and click **Download**
 
 ### Manual
 
@@ -37,12 +37,14 @@ This builds and syncs `dist/ha-card-feature-weather-forecast.js` to `/config/www
 
 ## Usage
 
-Add the card to your dashboard using the Lovelace UI editor or YAML:
+Add the feature to a tile card in YAML:
 
 ```yaml
-type: custom:ha-card-feature-weather-forecast
+type: tile
 entity: weather.home
-forecast_type: daily
-forecast_slots: 12
-round_temperature: false
+features:
+  - type: custom:hui-weather-forecast-card-feature
+    forecast_type: daily
+    forecast_slots: 12
+    round_temperature: false
 ```

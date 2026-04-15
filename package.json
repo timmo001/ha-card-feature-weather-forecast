@@ -2,7 +2,7 @@
   "name": "ha-card-feature-weather-forecast",
   "version": "0.0.1",
   "description": "Home Assistant weather forecast custom card",
-  "main": "src/card/ha-card-feature-weather-forecast.js",
+  "main": "src/card/hui-weather-forecast-card-feature.js",
   "scripts": {
     "start": "rolldown -c --watch",
     "build": "rolldown -c",
