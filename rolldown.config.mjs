@@ -1,8 +1,4 @@
 import { defineConfig } from "rolldown";
-import {
-  getBabelInputPlugin,
-  getBabelOutputPlugin,
-} from "@rollup/plugin-babel";
 import serve from "rollup-plugin-serve";
 
 const serveOptions = {
@@ -16,23 +12,7 @@ const serveOptions = {
 };
 
 export default defineConfig(({ watch }) => {
-  const plugins = [
-    getBabelInputPlugin({
-      babelHelpers: "bundled",
-    }),
-    getBabelOutputPlugin({
-      presets: [
-        [
-          "@babel/preset-env",
-          {
-            modules: false,
-          },
-        ],
-      ],
-      compact: true,
-    }),
-    ...(watch ? [serve(serveOptions)] : []),
-  ];
+  const plugins = [...(watch ? [serve(serveOptions)] : [])];
 
   return {
     input: "src/card/ha-card-feature-weather-forecast.ts",
@@ -41,7 +21,7 @@ export default defineConfig(({ watch }) => {
       dir: "dist",
       format: "es",
       codeSplitting: false,
-      minify: !watch,
+      minify: false,
     },
     plugins,
   };
