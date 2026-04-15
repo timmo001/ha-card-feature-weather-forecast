@@ -10,7 +10,6 @@ import type {
 } from "../ha/data/weather";
 import { WeatherEntityFeature } from "../ha/data/weather";
 import type { HomeAssistant } from "../ha/types";
-import { configElementStyle } from "../ha/panels/lovelace/editor/config-elements/config-elements-style";
 import { FEATURE_EDITOR_TYPE, FEATURE_TYPE } from "./const";
 import {
   normalizeWeatherForecastCardFeatureConfig,
@@ -241,7 +240,6 @@ export class HuiWeatherForecastCardFeatureEditor extends LitElement {
 
   static get styles() {
     return [
-      configElementStyle,
       css`
         ha-form {
           display: block;

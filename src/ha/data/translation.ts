@@ -10,17 +10,10 @@ export enum NumberFormat {
   none = "none",
 }
 
-export enum TimeZone {
-  local = "local",
-  server = "server",
-}
-
 export interface FrontendLocaleData {
   language: string;
   number_format: NumberFormat;
   time_format: "24" | "12" | "system";
   first_weekday: 0 | 1;
-  time_zone: TimeZone;
+  time_zone: "local" | "server";
 }
-
-export type TranslationCategory = string;
