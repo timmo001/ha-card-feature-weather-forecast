@@ -1,23 +1,9 @@
-import { createRequire } from "node:module";
 import { defineConfig } from "rolldown";
 import {
   getBabelInputPlugin,
   getBabelOutputPlugin,
 } from "@rollup/plugin-babel";
 import serve from "rollup-plugin-serve";
-import ignore from "./rollup-plugins/rollup-ignore-plugin.mjs";
-
-const require = createRequire(import.meta.url);
-
-const IGNORED_FILES = [
-  "@material/mwc-notched-outline/mwc-notched-outline.js",
-  "@material/mwc-ripple/mwc-ripple.js",
-  "@material/mwc-list/mwc-list.js",
-  "@material/mwc-list/mwc-list-item.js",
-  "@material/mwc-menu/mwc-menu.js",
-  "@material/mwc-menu/mwc-menu-surface.js",
-  "@material/mwc-icon/mwc-icon.js",
-];
 
 const serveOptions = {
   contentBase: ["./dist"],
@@ -31,9 +17,6 @@ const serveOptions = {
 
 export default defineConfig(({ watch }) => {
   const plugins = [
-    ignore({
-      files: IGNORED_FILES.map((file) => require.resolve(file)),
-    }),
     getBabelInputPlugin({
       babelHelpers: "bundled",
     }),
@@ -61,14 +44,5 @@ export default defineConfig(({ watch }) => {
       minify: !watch,
     },
     plugins,
-    moduleContext: (id) => {
-      const thisAsWindowForModules = [
-        "node_modules/@formatjs/intl-utils/lib/src/diff.js",
-        "node_modules/@formatjs/intl-utils/lib/src/resolve-locale.js",
-      ];
-      if (thisAsWindowForModules.some((id_) => id.trimRight().endsWith(id_))) {
-        return "window";
-      }
-    },
   };
 });

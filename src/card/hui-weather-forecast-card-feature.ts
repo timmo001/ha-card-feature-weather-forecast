@@ -148,6 +148,8 @@ export class HuiWeatherForecastCardFeature extends LitElement {
       return nothing;
     }
 
+    const hass = this.hass;
+
     const forecast = this._forecast;
     if (!forecast?.length) {
       return nothing;
@@ -198,7 +200,7 @@ export class HuiWeatherForecastCardFeature extends LitElement {
                 ${item.temperature !== undefined && item.temperature !== null
                   ? `${formatNumber(
                       item.temperature,
-                      this.hass.locale,
+                      hass.locale,
                       temperatureFormatOptions
                     )}°`
                   : "--"}

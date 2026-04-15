@@ -1,5 +1,5 @@
 import { assign, boolean, enums, number, object, optional } from "superstruct";
-import type { LovelaceCardFeatureConfig } from "../ha";
+import type { LovelaceCardFeatureConfig } from "../ha/types";
 
 export type ForecastType = "hourly" | "daily" | "twice_daily" | "legacy";
 

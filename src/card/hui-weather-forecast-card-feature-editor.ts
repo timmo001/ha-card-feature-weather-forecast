@@ -3,7 +3,6 @@ import { customElement, property, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import { supportsFeature } from "../ha/common/entity/supports-feature";
-import type { LocalizeFunc } from "../ha/common/translations/localize";
 import type {
   ForecastType,
   ModernForecastType,
@@ -11,8 +10,7 @@ import type {
 } from "../ha/data/weather";
 import { WeatherEntityFeature } from "../ha/data/weather";
 import type { HomeAssistant } from "../ha/types";
-import { configElementStyle } from "../ha";
-import type { HaFormSchema } from "../utils/form/ha-form";
+import { configElementStyle } from "../ha/panels/lovelace/editor/config-elements/config-elements-style";
 import { FEATURE_EDITOR_TYPE, FEATURE_TYPE } from "./const";
 import {
   normalizeWeatherForecastCardFeatureConfig,
@@ -22,6 +20,8 @@ import {
 
 export const DEFAULT_FORECAST_SLOTS = 12;
 export const MAX_FORECAST_SLOTS = 48;
+
+type HaFormSchema = { name: string; [key: string]: unknown };
 
 @customElement(FEATURE_EDITOR_TYPE)
 export class HuiWeatherForecastCardFeatureEditor extends LitElement {
@@ -82,7 +82,7 @@ export class HuiWeatherForecastCardFeatureEditor extends LitElement {
 
   private _schema = memoizeOne(
     (
-      localize: LocalizeFunc,
+      localize: HomeAssistant["localize"],
       hasDaily: boolean,
       hasHourly: boolean,
       hasTwiceDaily: boolean,
