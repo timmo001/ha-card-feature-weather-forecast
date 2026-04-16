@@ -7,6 +7,8 @@ A custom Home Assistant tile card feature that renders weather forecast slots wi
 
 https://github.com/user-attachments/assets/b9081de3-0d2e-4199-a740-d3970a38eb78
 
+<img width="1563" height="833" alt="image" src="https://github.com/user-attachments/assets/ca84aabc-7780-42ba-ba49-f26254e1ddff" />
+
 Original from https://github.com/home-assistant/frontend/pull/51559 which is not a good fit for main repo, so was moved here.
 
 Some other concerns raised on that PR are not resolved at time of writing. Support will be limited, but contributions and fixes welcome.
