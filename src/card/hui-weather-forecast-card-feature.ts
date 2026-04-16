@@ -457,7 +457,7 @@ export class HuiWeatherForecastCardFeature extends LitElement {
 
       .item {
         display: flex;
-        min-width: 40px;
+        min-width: 52px;
         flex-direction: column;
         align-items: center;
         text-align: center;
