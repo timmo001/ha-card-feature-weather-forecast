@@ -11,7 +11,7 @@ interface ReactiveControllerHost {
   renderRoot?: Element | DocumentFragment;
 }
 
-export interface DragScrollControllerConfig {
+interface DragScrollControllerConfig {
   selector: string;
   enabled?: boolean;
 }
@@ -62,6 +62,7 @@ export class DragScrollController implements ReactiveController {
     host.addController(this);
   }
 
+  // fallow-ignore-next-line unused-class-member
   public hostUpdated() {
     if (!this.enabled || this._scrollContainer) {
       return;
@@ -69,6 +70,7 @@ export class DragScrollController implements ReactiveController {
     this._attach();
   }
 
+  // fallow-ignore-next-line unused-class-member
   public hostDisconnected() {
     this._detach();
   }

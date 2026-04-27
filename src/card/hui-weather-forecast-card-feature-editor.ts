@@ -23,7 +23,7 @@ export const MAX_FORECAST_SLOTS = 48;
 type HaFormSchema = { name: string; [key: string]: unknown };
 
 @customElement(FEATURE_EDITOR_TYPE)
-export class HuiWeatherForecastCardFeatureEditor extends LitElement {
+class HuiWeatherForecastCardFeatureEditor extends LitElement {
   @property({ attribute: false }) public hass?: HomeAssistant;
 
   @property({ attribute: false }) public context?: { entity_id?: string };

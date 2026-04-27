@@ -1,8 +1,4 @@
 export enum NumberFormat {
-  auto = "auto",
-  numeric = "numeric",
-  scientific = "scientific",
-  language = "language",
   system = "system",
   comma_decimal = "comma_decimal",
   decimal_comma = "decimal_comma",

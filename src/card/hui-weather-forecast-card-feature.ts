@@ -9,6 +9,7 @@ import { DragScrollController } from "../ha/common/controllers/drag-scroll-contr
 import {
   ForecastAttribute,
   ForecastEvent,
+  ForecastType,
   getDefaultForecastType,
   getForecast,
   getWeatherStateIcon,
@@ -21,7 +22,6 @@ import type { HomeAssistant } from "../ha/types";
 import { FEATURE_NAME, FEATURE_TYPE } from "./const";
 import {
   normalizeWeatherForecastCardFeatureConfig,
-  ForecastType,
   WeatherForecastCardFeatureConfig,
   weatherForecastCardFeatureConfigStruct,
 } from "./weather-forecast-card-feature-config";
@@ -57,7 +57,7 @@ registerCustomCardFeature({
 });
 
 @customElement(FEATURE_TYPE)
-export class HuiWeatherForecastCardFeature extends LitElement {
+class HuiWeatherForecastCardFeature extends LitElement {
   @property({ attribute: false }) public hass?: HomeAssistant;
 
   @property({ attribute: false }) public context?: { entity_id?: string };

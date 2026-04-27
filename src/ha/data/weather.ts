@@ -49,7 +49,7 @@ export interface WeatherEntity extends HassEntityBase {
   attributes: WeatherEntityAttributes;
 }
 
-export const weatherSVGs = new Set<string>([
+const weatherSVGs = new Set<string>([
   "clear-night",
   "cloudy",
   "fog",

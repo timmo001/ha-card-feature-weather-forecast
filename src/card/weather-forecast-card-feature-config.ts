@@ -1,7 +1,6 @@
 import { assign, boolean, enums, number, object, optional } from "superstruct";
 import type { LovelaceCardFeatureConfig } from "../ha/types";
-
-export type ForecastType = "hourly" | "daily" | "twice_daily" | "legacy";
+import type { ForecastType } from "../ha/data/weather";
 
 export interface WeatherForecastCardFeatureConfig extends LovelaceCardFeatureConfig {
   forecast_type?: ForecastType;
