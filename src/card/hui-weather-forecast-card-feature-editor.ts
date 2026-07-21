@@ -127,19 +127,16 @@ class HuiWeatherForecastCardFeatureEditor extends LitElement {
       ];
 
       return [
-        ...(forecastTypeOptions.length
-          ? ([
-              {
-                name: "forecast_type",
-                default: forecastTypeOptions[0].value,
-                selector: {
-                  select: {
-                    options: forecastTypeOptions,
-                  },
-                },
-              },
-            ] as const)
-          : []),
+        {
+          name: "forecast_type",
+          hidden: !forecastTypeOptions.length,
+          default: forecastTypeOptions[0]?.value,
+          selector: {
+            select: {
+              options: forecastTypeOptions,
+            },
+          },
+        },
         {
           name: "forecast_slots",
           default: DEFAULT_FORECAST_SLOTS,
