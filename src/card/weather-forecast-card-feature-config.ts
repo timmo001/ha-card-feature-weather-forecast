@@ -31,5 +31,6 @@ export const normalizeWeatherForecastCardFeatureConfig = (
   const next = { ...config };
   const rawSlots = next.forecast_slots ?? defaultSlots;
   next.forecast_slots = Math.max(1, Math.min(maxSlots, Math.round(rawSlots)));
+
   return next;
 };

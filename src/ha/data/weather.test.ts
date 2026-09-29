@@ -1,26 +1,17 @@
+import type { TemplateResult } from "lit";
+import { isTemplateResult } from "lit/directive-helpers.js";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { getWeatherStateIcon } from "./weather";
 
-type PartRecord = Record<string, unknown>;
-
-const collectTemplateStrings = (part: unknown): string[] => {
-  if (!part || typeof part !== "object") {
+const collectTemplateStrings = (part?: TemplateResult): string[] => {
+  if (!part) {
     return [];
   }
 
-  const strings: string[] = [];
-  const candidateStrings = (part as PartRecord).strings;
-  if (Array.isArray(candidateStrings)) {
-    strings.push(
-      ...candidateStrings.filter(
-        (value): value is string => typeof value === "string"
-      )
-    );
-  }
+  const strings = [...part.strings];
 
-  const values = (part as PartRecord).values;
-  if (Array.isArray(values)) {
-    for (const value of values) {
+  for (const value of part.values) {
+    if (isTemplateResult(value) && "strings" in value) {
       strings.push(...collectTemplateStrings(value));
     }
   }
@@ -28,10 +19,10 @@ const collectTemplateStrings = (part: unknown): string[] => {
   return strings;
 };
 
-const flattenTemplateStrings = (part: unknown): string =>
+const flattenTemplateStrings = (part?: TemplateResult): string =>
   collectTemplateStrings(part).join(" ");
 
-const createElement = () => ({}) as HTMLElement;
+const createElement = (): HTMLElement => Object.create(null);
 
 beforeEach(() => {
   vi.stubGlobal("getComputedStyle", () => ({

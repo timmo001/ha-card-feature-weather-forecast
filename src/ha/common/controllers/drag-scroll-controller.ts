@@ -43,12 +43,15 @@ export class DragScrollController implements ReactiveController {
     if (value === this._enabled) {
       return;
     }
+
     this._enabled = value;
+
     if (this._enabled) {
       this._attach();
     } else {
       this._detach();
     }
+
     this._host.requestUpdate();
   }
 
@@ -67,6 +70,7 @@ export class DragScrollController implements ReactiveController {
     if (!this.enabled || this._scrollContainer) {
       return;
     }
+
     this._attach();
   }
 
@@ -79,6 +83,7 @@ export class DragScrollController implements ReactiveController {
     this._scrollContainer = this._host.renderRoot?.querySelector(
       this._selector
     );
+
     if (this._scrollContainer) {
       this._scrollContainer.addEventListener("mousedown", this._mouseDown);
     }
@@ -87,10 +92,12 @@ export class DragScrollController implements ReactiveController {
   private _detach() {
     window.removeEventListener("mousemove", this._mouseMove);
     window.removeEventListener("mouseup", this._mouseUp);
+
     if (this._scrollContainer) {
       this._scrollContainer.removeEventListener("mousedown", this._mouseDown);
       this._scrollContainer = undefined;
     }
+
     this.scrolled = false;
     this.scrolling = false;
     this.mouseIsDown = false;

@@ -15,5 +15,4 @@ export interface HomeAssistant {
 
 export interface LovelaceCardFeatureConfig {
   type: string;
-  [key: string]: unknown;
 }

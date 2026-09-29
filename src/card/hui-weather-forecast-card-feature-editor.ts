@@ -18,12 +18,22 @@ import {
 } from "./weather-forecast-card-feature-config";
 
 export const DEFAULT_FORECAST_SLOTS = 12;
+
 export const MAX_FORECAST_SLOTS = 48;
 
-type HaFormSchema = { name: string; [key: string]: unknown };
+type HaFormSchema = {
+  name: string;
+  hidden?: boolean;
+  default?: string | number;
+  selector: object;
+};
+
+type ValueChangedEvent = CustomEvent<{
+  value: Partial<WeatherForecastCardFeatureConfig>;
+}>;
 
 @customElement(FEATURE_EDITOR_TYPE)
-class HuiWeatherForecastCardFeatureEditor extends LitElement {
+export class HuiWeatherForecastCardFeatureEditor extends LitElement {
   @property({ attribute: false }) public hass?: HomeAssistant;
 
   @property({ attribute: false }) public context?: { entity_id?: string };
@@ -36,6 +46,7 @@ class HuiWeatherForecastCardFeatureEditor extends LitElement {
       DEFAULT_FORECAST_SLOTS,
       MAX_FORECAST_SLOTS
     );
+
     assert(normalizedConfig, weatherForecastCardFeatureConfigStruct);
     this._config = normalizedConfig;
   }
@@ -45,13 +56,15 @@ class HuiWeatherForecastCardFeatureEditor extends LitElement {
       return undefined;
     }
 
-    return this.hass.states[this.context.entity_id] as
-      | WeatherEntity
-      | undefined;
+    const stateObj: WeatherEntity | undefined =
+      this.hass.states[this.context.entity_id];
+
+    return stateObj;
   }
 
   private _forecastSupported(forecastType: ForecastType): boolean {
     const stateObj = this._stateObj;
+
     if (!stateObj || forecastType === "legacy") {
       return false;
     }
@@ -59,6 +72,7 @@ class HuiWeatherForecastCardFeatureEditor extends LitElement {
     if (forecastType === "daily") {
       return supportsFeature(stateObj, WeatherEntityFeature.FORECAST_DAILY);
     }
+
     if (forecastType === "hourly") {
       return supportsFeature(stateObj, WeatherEntityFeature.FORECAST_HOURLY);
     }
@@ -70,12 +84,15 @@ class HuiWeatherForecastCardFeatureEditor extends LitElement {
     if (this._forecastSupported("daily")) {
       return "daily";
     }
+
     if (this._forecastSupported("hourly")) {
       return "hourly";
     }
+
     if (this._forecastSupported("twice_daily")) {
       return "twice_daily";
     }
+
     return undefined;
   }
 
@@ -186,12 +203,12 @@ class HuiWeatherForecastCardFeatureEditor extends LitElement {
         .schema=${schema}
         .computeLabel=${this._computeLabelCallback}
         .computeHelper=${this._computeHelperCallback}
-        @value-changed=${this._valueChanged}
+        @value-changed=${(ev: ValueChangedEvent) => this._valueChanged(ev)}
       ></ha-form>
     `;
   }
 
-  private _valueChanged(ev: CustomEvent): void {
+  private _valueChanged(ev: ValueChangedEvent): void {
     const config = normalizeWeatherForecastCardFeatureConfig(
       {
         ...(this._config || { type: `custom:${FEATURE_TYPE}` }),

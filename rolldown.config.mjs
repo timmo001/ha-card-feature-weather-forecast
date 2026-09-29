@@ -12,7 +12,7 @@ const serveOptions = {
 };
 
 export default defineConfig(({ watch }) => {
-  const plugins = [...(watch ? [serve(serveOptions)] : [])];
+  const plugins = watch ? [serve(serveOptions)] : [];
 
   return {
     input: "src/card/ha-card-feature-weather-forecast.ts",

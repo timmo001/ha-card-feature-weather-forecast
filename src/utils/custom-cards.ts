@@ -5,21 +5,18 @@ interface RegisterCardFeatureParams {
   configurable?: boolean;
 }
 
-export function registerCustomCardFeature(params: RegisterCardFeatureParams) {
-  const customCardsWindow = window as Window & {
+declare global {
+  interface Window {
     customCardFeatures?: RegisterCardFeatureParams[];
-  };
+  }
+}
 
-  customCardsWindow.customCardFeatures =
-    customCardsWindow.customCardFeatures || [];
+export function registerCustomCardFeature(params: RegisterCardFeatureParams) {
+  window.customCardFeatures = window.customCardFeatures || [];
 
-  if (
-    customCardsWindow.customCardFeatures.some(
-      (entry) => entry.type === params.type
-    )
-  ) {
+  if (window.customCardFeatures.some((entry) => entry.type === params.type)) {
     return;
   }
 
-  customCardsWindow.customCardFeatures.push(params);
+  window.customCardFeatures.push(params);
 }

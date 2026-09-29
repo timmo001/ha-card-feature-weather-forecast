@@ -35,8 +35,8 @@ const supportsWeatherForecastCardFeature = (
   hass: HomeAssistant,
   context: { entity_id?: string }
 ) => {
-  const stateObj = context.entity_id
-    ? (hass.states[context.entity_id] as WeatherEntity | undefined)
+  const stateObj: WeatherEntity | undefined = context.entity_id
+    ? hass.states[context.entity_id]
     : undefined;
 
   if (!stateObj || computeDomain(stateObj.entity_id) !== "weather") {
@@ -57,7 +57,7 @@ registerCustomCardFeature({
 });
 
 @customElement(FEATURE_TYPE)
-class HuiWeatherForecastCardFeature extends LitElement {
+export class HuiWeatherForecastCardFeature extends LitElement {
   @property({ attribute: false }) public hass?: HomeAssistant;
 
   @property({ attribute: false }) public context?: { entity_id?: string };
@@ -95,6 +95,7 @@ class HuiWeatherForecastCardFeature extends LitElement {
 
   public static async getConfigElement() {
     await import("./hui-weather-forecast-card-feature-editor");
+
     return document.createElement("hui-weather-forecast-card-feature-editor");
   }
 
@@ -104,12 +105,14 @@ class HuiWeatherForecastCardFeature extends LitElement {
       DEFAULT_FORECAST_SLOTS,
       MAX_FORECAST_SLOTS
     );
+
     assert(normalizedConfig, weatherForecastCardFeatureConfigStruct);
     this._config = normalizedConfig;
   }
 
   public connectedCallback() {
     super.connectedCallback();
+
     if (this.hasUpdated) {
       this._subscribeForecastEvents();
     }
@@ -120,22 +123,26 @@ class HuiWeatherForecastCardFeature extends LitElement {
     this._unsubscribeForecastEvents();
   }
 
-  protected willUpdate(changedProps: PropertyValues): void {
+  protected willUpdate(
+    changedProps: PropertyValues<this> & Map<"_config", unknown>
+  ): void {
     super.willUpdate(changedProps);
 
     const nextForecastType = this._effectiveForecastType;
     const forecastTypeChanged = nextForecastType !== this._forecastType;
-    const previousContext = changedProps.get("context") as
-      | { entity_id?: string }
-      | undefined;
+
+    const previousContext = changedProps.get("context");
+
     const contextEntityChanged =
       previousContext?.entity_id !== this.context?.entity_id;
-    const previousHass = changedProps.get("hass") as HomeAssistant | undefined;
+
+    const previousHass = changedProps.get("hass");
+
     const hassConnectionChanged =
       previousHass?.connection !== this.hass?.connection;
-    const previousStateObj = changedProps.get("stateObj") as
-      | WeatherEntity
-      | undefined;
+
+    const previousStateObj = changedProps.get("stateObj");
+
     const stateObjEntityChanged =
       previousStateObj?.entity_id !== this.stateObj?.entity_id;
 
@@ -171,6 +178,7 @@ class HuiWeatherForecastCardFeature extends LitElement {
     const hass = this.hass;
 
     const forecast = this._forecast;
+
     if (!forecast?.length) {
       return nothing;
     }
@@ -184,6 +192,7 @@ class HuiWeatherForecastCardFeature extends LitElement {
       this._forecastEvent,
       this._forecastType
     )?.type;
+
     const hourly = forecastType === "hourly";
     const dayNight = forecastType === "twice_daily";
     const todayKey = this._dayKeyFromDate(new Date());
@@ -209,25 +218,31 @@ class HuiWeatherForecastCardFeature extends LitElement {
               <div class="label">
                 ${this._labelForForecast(item, hourly, dayNight)}
               </div>
-              ${item.condition
-                ? html`
-                    <div class="icon">
-                      ${getWeatherStateIcon(
-                        item.condition,
-                        this,
-                        !(item.is_daytime || item.is_daytime === undefined)
-                      ) ?? nothing}
-                    </div>
-                  `
-                : nothing}
+              ${
+                item.condition
+                  ? html`
+                      <div class="icon">
+                        ${
+                          getWeatherStateIcon(
+                            item.condition,
+                            this,
+                            !(item.is_daytime || item.is_daytime === undefined)
+                          ) ?? nothing
+                        }
+                      </div>
+                    `
+                  : nothing
+              }
               <div class="temp">
-                ${item.temperature !== undefined && item.temperature !== null
-                  ? `${formatNumber(
-                      item.temperature,
-                      hass.locale,
-                      temperatureFormatOptions
-                    )}°`
-                  : "--"}
+                ${
+                  item.temperature !== undefined && item.temperature !== null
+                    ? `${formatNumber(
+                        item.temperature,
+                        hass.locale,
+                        temperatureFormatOptions
+                      )}°`
+                    : "--"
+                }
               </div>
             </div>
           `
@@ -247,13 +262,17 @@ class HuiWeatherForecastCardFeature extends LitElement {
     if (!dayNight && !hourly) {
       return nothing;
     }
+
     const previousItem = forecast[index - 1];
     const itemDayKey = this._dayKeyForForecast(item);
+
     const dayChanged =
       !previousItem || itemDayKey !== this._dayKeyForForecast(previousItem);
+
     if (!dayChanged || itemDayKey === todayKey) {
       return nothing;
     }
+
     return html`<div class="item label-only">
       <div class="label">${this._dayLabelForForecast(item)}</div>
     </div>`;
@@ -263,19 +282,24 @@ class HuiWeatherForecastCardFeature extends LitElement {
     if (this.stateObj) {
       return this.stateObj;
     }
+
     if (!this.hass || !this.context?.entity_id) {
       return undefined;
     }
-    return this.hass.states[this.context.entity_id] as
-      | WeatherEntity
-      | undefined;
+
+    const stateObj: WeatherEntity | undefined =
+      this.hass.states[this.context.entity_id];
+
+    return stateObj;
   }
 
   private get _forecast() {
     const stateObj = this._stateObj;
+
     if (!stateObj) {
       return undefined;
     }
+
     return getForecast(
       stateObj.attributes,
       this._forecastEvent,
@@ -288,6 +312,7 @@ class HuiWeatherForecastCardFeature extends LitElement {
 
   private get _effectiveForecastType(): ForecastType | undefined {
     const stateObj = this._stateObj;
+
     if (!stateObj) {
       return undefined;
     }
@@ -311,6 +336,7 @@ class HuiWeatherForecastCardFeature extends LitElement {
       this._subscribed.then((unsub) => unsub()).catch(() => undefined);
       this._subscribed = undefined;
     }
+
     this._subscribedEntityId = undefined;
     this._subscribedForecastType = undefined;
     this._subscribedConnection = undefined;
@@ -323,6 +349,7 @@ class HuiWeatherForecastCardFeature extends LitElement {
 
     if (!this.isConnected || !this.hass || !stateObj || !modernForecastType) {
       this._unsubscribeForecastEvents();
+
       return;
     }
 
@@ -375,11 +402,13 @@ class HuiWeatherForecastCardFeature extends LitElement {
         minute: "2-digit",
       }).format(new Date(item.datetime));
     }
+
     if (dayNight) {
       return item.is_daytime !== false
         ? this.hass.localize("ui.card.weather.day") || "Day"
         : this.hass.localize("ui.card.weather.night") || "Night";
     }
+
     return this._dayLabelForForecast(item);
   }
 
@@ -387,6 +416,7 @@ class HuiWeatherForecastCardFeature extends LitElement {
     if (!this.hass) {
       return "";
     }
+
     return new Intl.DateTimeFormat(this.hass.locale.language, {
       weekday: "short",
     }).format(new Date(item.datetime));

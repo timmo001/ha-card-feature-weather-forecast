@@ -99,23 +99,25 @@ export const weatherSVGStyles = css`
   }
 `;
 
-const weatherIcons: Record<string, string> = {
-  "clear-night": "mdi:weather-night",
-  cloudy: "mdi:weather-cloudy",
-  exceptional: "mdi:alert-circle-outline",
-  fog: "mdi:weather-fog",
-  hail: "mdi:weather-hail",
-  lightning: "mdi:weather-lightning",
-  "lightning-rainy": "mdi:weather-lightning-rainy",
-  partlycloudy: "mdi:weather-partly-cloudy",
-  pouring: "mdi:weather-pouring",
-  rainy: "mdi:weather-rainy",
-  snowy: "mdi:weather-snowy",
-  "snowy-rainy": "mdi:weather-snowy-rainy",
-  sunny: "mdi:weather-sunny",
-  windy: "mdi:weather-windy",
-  "windy-variant": "mdi:weather-windy-variant",
-};
+const weatherIcons = new Map(
+  Object.entries({
+    "clear-night": "mdi:weather-night",
+    cloudy: "mdi:weather-cloudy",
+    exceptional: "mdi:alert-circle-outline",
+    fog: "mdi:weather-fog",
+    hail: "mdi:weather-hail",
+    lightning: "mdi:weather-lightning",
+    "lightning-rainy": "mdi:weather-lightning-rainy",
+    partlycloudy: "mdi:weather-partly-cloudy",
+    pouring: "mdi:weather-pouring",
+    rainy: "mdi:weather-rainy",
+    snowy: "mdi:weather-snowy",
+    "snowy-rainy": "mdi:weather-snowy-rainy",
+    sunny: "mdi:weather-sunny",
+    windy: "mdi:weather-windy",
+    "windy-variant": "mdi:weather-windy-variant",
+  })
+);
 
 const cloudyStates = new Set<string>([
   "partlycloudy",
@@ -305,7 +307,8 @@ export const getWeatherStateIcon = (
     return html`${getWeatherStateSVG(state, nightTime)}`;
   }
 
-  const icon = weatherIcons[state];
+  const icon = weatherIcons.get(state);
+
   if (!icon) {
     return undefined;
   }
@@ -314,6 +317,7 @@ export const getWeatherStateIcon = (
 };
 
 const EIGHT_HOURS = 28800000;
+
 const DAY_IN_MILLISECONDS = 86400000;
 
 const isForecastHourly = (
@@ -359,14 +363,17 @@ const getLegacyForecast = (
         type: "hourly",
       };
     }
+
     if (isForecastTwiceDaily(weatherAttributes.forecast)) {
       return {
         forecast: weatherAttributes.forecast,
         type: "twice_daily",
       };
     }
+
     return { forecast: weatherAttributes.forecast, type: "daily" };
   }
+
   return undefined;
 };
 
@@ -388,6 +395,7 @@ export const getForecast = (
     ) {
       return { forecast: forecastEvent.forecast, type: forecastEvent.type };
     }
+
     return getLegacyForecast(weatherAttributes);
   }
 
@@ -424,11 +432,14 @@ export const getDefaultForecastType = (
   if (supportsFeature(stateObj, WeatherEntityFeature.FORECAST_DAILY)) {
     return "daily";
   }
+
   if (supportsFeature(stateObj, WeatherEntityFeature.FORECAST_TWICE_DAILY)) {
     return "twice_daily";
   }
+
   if (supportsFeature(stateObj, WeatherEntityFeature.FORECAST_HOURLY)) {
     return "hourly";
   }
+
   return undefined;
 };

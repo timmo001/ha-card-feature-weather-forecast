@@ -17,34 +17,8 @@ const numberFormatToLocale = (
   }
 };
 
-const getDefaultFormatOptions = (
-  num: string | number,
-  options?: Intl.NumberFormatOptions
-): Intl.NumberFormatOptions => {
-  const defaultOptions: Intl.NumberFormatOptions = {
-    maximumFractionDigits: 2,
-    ...options,
-  };
-
-  if (typeof num !== "string") {
-    return defaultOptions;
-  }
-
-  if (
-    !options ||
-    (options.minimumFractionDigits === undefined &&
-      options.maximumFractionDigits === undefined)
-  ) {
-    const digits = num.includes(".") ? num.split(".")[1].length : 0;
-    defaultOptions.minimumFractionDigits = digits;
-    defaultOptions.maximumFractionDigits = digits;
-  }
-
-  return defaultOptions;
-};
-
 export const formatNumber = (
-  num: string | number,
+  num: number,
   localeOptions?: FrontendLocaleData,
   options?: Intl.NumberFormatOptions
 ): string => {
@@ -54,18 +28,17 @@ export const formatNumber = (
 
   if (
     localeOptions?.number_format !== NumberFormat.none &&
-    Number.isFinite(Number(num))
+    Number.isFinite(num)
   ) {
+    const formatOptions: Intl.NumberFormatOptions = {
+      maximumFractionDigits: 2,
+      ...options,
+    };
+
     try {
-      return new Intl.NumberFormat(
-        locale,
-        getDefaultFormatOptions(num, options)
-      ).format(Number(num));
+      return new Intl.NumberFormat(locale, formatOptions).format(num);
     } catch {
-      return new Intl.NumberFormat(
-        undefined,
-        getDefaultFormatOptions(num, options)
-      ).format(Number(num));
+      return new Intl.NumberFormat(undefined, formatOptions).format(num);
     }
   }
 
