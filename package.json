@@ -8,7 +8,8 @@
     "build": "rolldown -c",
     "test": "vitest run",
     "format": "prettier --write .",
-    "publish-to-local": "bash ./scripts/publish-to-local.sh"
+    "publish-to-local": "bash ./scripts/publish-to-local.sh",
+    "lint": "oxlint"
   },
   "author": {
     "name": "Aidan Timson",
@@ -27,6 +28,10 @@
     "superstruct": "^2.0.2"
   },
   "devDependencies": {
+    "@oxlint/plugins": "1.86.0",
+    "@timmo001/oxlint-rules": "0.4.0",
+    "oxlint": "1.86.0",
+    "oxlint-tsgolint": "7.0.2003",
     "prettier": "^3.6.2",
     "rolldown": "^1.0.0-rc.11",
     "rollup-plugin-serve": "^3.0.0",
