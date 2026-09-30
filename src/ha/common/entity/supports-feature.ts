@@ -5,4 +5,4 @@ export const supportsFeature = (
   feature: number
 ): boolean =>
   // eslint-disable-next-line no-bitwise
-  (stateObj.attributes.supported_features! & feature) !== 0;
+  ((stateObj.attributes.supported_features ?? 0) & feature) !== 0;
