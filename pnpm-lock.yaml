@@ -167,8 +167,8 @@ importers:
   .:
     dependencies:
       home-assistant-js-websocket:
-        specifier: 9.7.0
-        version: 9.7.0
+        specifier: 9.7.1
+        version: 9.7.1
       lit:
         specifier: 3.3.3
         version: 3.3.3
@@ -673,8 +673,8 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
-  home-assistant-js-websocket@9.7.0:
-    resolution: {integrity: sha512-AE/VtwY+sKi7B3934KuIgvj2g06QY9aFVdd2zh1r5ygbpMo2TZbvN9Zoma8L2wHNYFsngTRiZxYOnLlCysIOzA==}
+  home-assistant-js-websocket@9.7.1:
+    resolution: {integrity: sha512-zOAiyF+gUc/IsiswYdWKns6SCBbvWb8iJtMX9+Dk0wlbdfcp+I38T2Vx36krWeWMk/GPwoSiYwCs5hk/+Hsn7w==}
 
   lightningcss-android-arm64@1.33.0:
     resolution: {integrity: sha512-gEpRTalKdosp4Bb8qWtc2iOgE5SeIHlpS1up9bFq2wAyYhl1UdTObYiHe98zEM9SQvSoqQZ1IQD0JNpg3Ml5pg==}
@@ -1192,7 +1192,7 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
-  home-assistant-js-websocket@9.7.0: {}
+  home-assistant-js-websocket@9.7.1: {}
 
   lightningcss-android-arm64@1.33.0:
     optional: true
