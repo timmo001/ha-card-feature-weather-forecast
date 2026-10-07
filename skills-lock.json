@@ -3,10 +3,10 @@
   "skills": {
     "changeset-scope": {
       "source": "timmo001/skills",
-      "ref": "150972a88d31ef65f9074a9788f5ce8a52f55577",
+      "ref": "a65c227dd7288ac059298d82b84e1cd0e9c9a680",
       "sourceType": "github",
       "skillPath": "changeset-scope/SKILL.md",
-      "computedHash": "76ccbe4cdb64d6fb9e035ce4e52d443b4199d9c3225e035ebcf160a3eca88ac2"
+      "computedHash": "792358f213f571ca78ed6b0a6118020398a9bb1288d855c8c127cb344e14f4be"
     },
     "code-review": {
       "source": "timmo001/skills",
@@ -22,12 +22,26 @@
       "skillPath": "effect-principles/SKILL.md",
       "computedHash": "8d56fdf5c00665759b049647ea356b387c628eef9807ffdf6165b0413ac3ab31"
     },
+    "home-assistant-frontend": {
+      "source": "timmo001/skills",
+      "ref": "a65c227dd7288ac059298d82b84e1cd0e9c9a680",
+      "sourceType": "github",
+      "skillPath": "home-assistant-frontend/SKILL.md",
+      "computedHash": "74d86a0408fede6451074713f441944444b0a4ff032d27479f7b6a337401ac31"
+    },
+    "home-assistant-lit-rendering": {
+      "source": "timmo001/skills",
+      "ref": "a65c227dd7288ac059298d82b84e1cd0e9c9a680",
+      "sourceType": "github",
+      "skillPath": "home-assistant-lit-rendering/SKILL.md",
+      "computedHash": "71de2e7392f22915724053e6041239b1545546fbf72d46ab7217e002c434af4f"
+    },
     "lit-rendering": {
       "source": "timmo001/skills",
-      "ref": "4ec0a36f1fb2954ae2240c5420d20a39e4391ce5",
+      "ref": "a65c227dd7288ac059298d82b84e1cd0e9c9a680",
       "sourceType": "github",
       "skillPath": "lit-rendering/SKILL.md",
-      "computedHash": "d10b6e0d4a5fa5a6b475b9db0742642c34a8fd63cd1f32778cc4e673ef8708c6"
+      "computedHash": "f642f29aabbb6f2b7d122ee0eb370f642f57aac936ff2712032a05ac60f8363f"
     },
     "skill-prefixes": {
       "source": "timmo001/skills",
@@ -45,10 +59,10 @@
     },
     "types-enforce-ts": {
       "source": "timmo001/skills",
-      "ref": "4ec0a36f1fb2954ae2240c5420d20a39e4391ce5",
+      "ref": "a65c227dd7288ac059298d82b84e1cd0e9c9a680",
       "sourceType": "github",
       "skillPath": "types-enforce-ts/SKILL.md",
-      "computedHash": "099482db0c2750f6ce7d7a938782f08213a488b0fb6b9d0c40df28bb6828b2e0"
+      "computedHash": "182012ad1eab7894f4736a0144bddf659a4e87bd6e992129837d0fcb704c1161"
     },
     "writing-style": {
       "source": "timmo001/skills",
