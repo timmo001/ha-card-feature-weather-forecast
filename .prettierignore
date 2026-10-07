@@ -4,3 +4,4 @@ dist
 package-lock.json
 package.json
 .agents/skills
+vendor
