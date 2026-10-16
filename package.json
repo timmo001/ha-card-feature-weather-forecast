@@ -37,7 +37,7 @@
     "rolldown": "1.2.14",
     "rollup-plugin-serve": "3.0.0",
     "typescript": "7.0.2",
-    "vitest": "5.0.4"
+    "vitest": "5.0.5"
   },
   "packageManager": "pnpm@12.11.2"
 }
