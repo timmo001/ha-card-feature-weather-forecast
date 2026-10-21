@@ -1,4 +1,4 @@
-# Weather forecast card feature
+# Weather Forecast Card Feature
 
 Use this feature inside a tile card to display weather forecast entries.
 

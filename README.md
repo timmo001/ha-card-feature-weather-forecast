@@ -1,4 +1,4 @@
-# Weather forecast card feature
+# Weather Forecast Card Feature
 
 > [!WARNING]
 > This card feature is experimental, and breaking changes may occur.
@@ -25,7 +25,7 @@ Since this card is not yet in the default HACS store, add it as a custom reposit
 4. Add repository URL: `https://github.com/timmo001/ha-card-feature-weather-forecast`
 5. Select category: **Dashboard**
 6. Click **"ADD"**
-7. Find "Card feature weather forecast" in the list and click **Download**
+7. Find "Weather Forecast Card Feature" in the list and click **Download**
 
 ### Manual
 
