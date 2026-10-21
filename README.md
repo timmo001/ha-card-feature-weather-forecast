@@ -22,14 +22,14 @@ Since this card is not yet in the default HACS store, add it as a custom reposit
 1. Open HACS in your Home Assistant instance
 2. Click the **3 dots** in the top right corner
 3. Select **"Custom repositories"**
-4. Add repository URL: `https://github.com/timmo001/ha-card-feature-weather-forecast`
+4. Add repository URL: `https://github.com/timmo001/ha-weather-forecast-card-feature`
 5. Select category: **Dashboard**
 6. Click **"ADD"**
 7. Find "Weather Forecast Card Feature" in the list and click **Download**
 
 ### Manual
 
-1. Download `ha-card-feature-weather-forecast.js` from the latest release
+1. Download `ha-weather-forecast-card-feature.js` from the latest release
 2. Place it in your `config/www` folder
 3. Add the resource in your Lovelace dashboard
 
@@ -41,7 +41,7 @@ Copy `.env.example` to `.env`, set `PUBLISH_TARGET` (and optional `PUBLISH_PORT`
 pnpm publish-to-local
 ```
 
-This builds and syncs `dist/ha-card-feature-weather-forecast.js` to `/config/www/community/ha-card-feature-weather-forecast/` on the remote.
+This builds and syncs `dist/ha-weather-forecast-card-feature.js` to `/config/www/community/ha-weather-forecast-card-feature/` on the remote.
 
 ## Usage
 
