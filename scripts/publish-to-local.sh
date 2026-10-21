@@ -4,8 +4,8 @@ set -euo pipefail
 
 ROOT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 ENV_FILE="${ROOT_DIR}/.env"
-BUNDLE_NAME="ha-weather-forecast-card-feature.js"
-PUBLISH_PATH="/config/www/community/ha-weather-forecast-card-feature"
+BUNDLE_NAME="ha-card-feature-weather-forecast.js"
+PUBLISH_PATH="/config/www/community/ha-card-feature-weather-forecast"
 
 if [[ -t 2 && -z "${NO_COLOR:-}" ]]; then
   ANSI_RESET=$'\033[0m'
@@ -149,7 +149,7 @@ ensure_target_writable() {
   local write_test_name
 
   ssh_error_file="$(mktemp)"
-  write_test_name=".ha_weather_forecast_card_feature_write_test_$$"
+  write_test_name=".ha_card_feature_weather_forecast_write_test_$$"
 
   if ssh "${SSH_ARGS[@]}" "${PUBLISH_TARGET}" "touch '${PUBLISH_PATH}/${write_test_name}' && rm -f '${PUBLISH_PATH}/${write_test_name}'" 2>"${ssh_error_file}"; then
     rm -f "${ssh_error_file}"

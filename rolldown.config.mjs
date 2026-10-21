@@ -15,7 +15,7 @@ export default defineConfig(({ watch }) => {
   const plugins = watch ? [serve(serveOptions)] : [];
 
   return {
-    input: "src/card/ha-weather-forecast-card-feature.ts",
+    input: "src/card/ha-card-feature-weather-forecast.ts",
     tsconfig: "./tsconfig.json",
     output: {
       dir: "dist",
