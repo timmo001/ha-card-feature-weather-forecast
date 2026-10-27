@@ -1,0 +1,32 @@
+# Live demo on https://timmo.dev/demos/ha-card-feature-weather-forecast,
+# rendered with Home Assistant's embed components against mocked entities. It's
+# read from each release, so it has to match that release's feature.
+#
+# The forecast is made up from the entity's condition and temperature.
+entities:
+  - entity_id: weather.home
+    state: partlycloudy
+    attributes:
+      friendly_name: Home
+      temperature: 14
+      temperature_unit: °C
+      humidity: 72
+      wind_speed: 18
+      wind_speed_unit: km/h
+      # Daily, hourly and twice daily forecasts
+      supported_features: 7
+cards:
+  - type: tile
+    entity: weather.home
+    features:
+      - type: custom:hui-weather-forecast-card-feature
+        forecast_type: daily
+        forecast_slots: 7
+        round_temperature: true
+  - type: tile
+    entity: weather.home
+    features:
+      - type: custom:hui-weather-forecast-card-feature
+        forecast_type: hourly
+        forecast_slots: 8
+        round_temperature: true
