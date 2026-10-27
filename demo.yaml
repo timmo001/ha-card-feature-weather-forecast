@@ -1,0 +1,53 @@
+# Live demo on https://timmo.dev/demos/ha-card-feature-weather-forecast,
+# rendered with Home Assistant's embed components against mocked entities. It's
+# read from each release, so it has to match that release's feature.
+#
+# The demo's mocked backend doesn't answer weather/subscribe_forecast, so the
+# forecast comes from the legacy forecast attribute instead.
+entities:
+  - entity_id: weather.home
+    state: partlycloudy
+    attributes:
+      friendly_name: Home
+      temperature: 14
+      temperature_unit: °C
+      humidity: 72
+      wind_speed: 18
+      wind_speed_unit: km/h
+      forecast:
+        - datetime: "2026-11-02T12:00:00+00:00"
+          condition: partlycloudy
+          temperature: 14
+          templow: 8
+        - datetime: "2026-11-03T12:00:00+00:00"
+          condition: rainy
+          temperature: 12
+          templow: 7
+        - datetime: "2026-11-04T12:00:00+00:00"
+          condition: pouring
+          temperature: 11
+          templow: 6
+        - datetime: "2026-11-05T12:00:00+00:00"
+          condition: cloudy
+          temperature: 10
+          templow: 5
+        - datetime: "2026-11-06T12:00:00+00:00"
+          condition: sunny
+          temperature: 12
+          templow: 4
+        - datetime: "2026-11-07T12:00:00+00:00"
+          condition: windy
+          temperature: 11
+          templow: 6
+        - datetime: "2026-11-08T12:00:00+00:00"
+          condition: partlycloudy
+          temperature: 13
+          templow: 7
+cards:
+  - type: tile
+    entity: weather.home
+    features:
+      - type: custom:hui-weather-forecast-card-feature
+        forecast_type: legacy
+        forecast_slots: 7
+        round_temperature: true
