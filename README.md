@@ -13,6 +13,7 @@ Original from https://github.com/home-assistant/frontend/pull/51559 which is not
 
 Some other concerns raised on that PR are not resolved at time of writing. Support will be limited, but contributions and fixes welcome.
 
+<!-- ha-marketplace:exclude-start -->
 ## Installation
 
 ### HACS (Recommended)
@@ -42,6 +43,7 @@ pnpm publish-to-local
 ```
 
 This builds and syncs `dist/ha-card-feature-weather-forecast.js` to `/config/www/community/ha-card-feature-weather-forecast/` on the remote.
+<!-- ha-marketplace:exclude-end -->
 
 ## Usage
 
