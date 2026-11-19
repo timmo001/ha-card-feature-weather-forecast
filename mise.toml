@@ -15,4 +15,4 @@ actionlint = "1.7.12"
 shellcheck = "0.11.0"
 # Runs the pre-push hook, and the pkl config it reads.
 hk = "2.13.0"
-pkl = "0.33.0"
+pkl = "0.33.1"
