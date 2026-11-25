@@ -25,7 +25,7 @@
   "dependencies": {
     "home-assistant-js-websocket": "9.9.0",
     "lit": "3.3.3",
-    "memoize-one": "6.0.0",
+    "memoize-one": "7.0.0",
     "superstruct": "2.0.2"
   },
   "devDependencies": {
